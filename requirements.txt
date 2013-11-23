@@ -1,0 +1,6 @@
+django
+django-activelink
+django-bootstrap-form
+django-extensions
+django-filter
+django-taggit

@@ -1,0 +1,44 @@
+{% load activelink %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Cashout</title>
+
+        <link href="{{ STATIC_URL }}vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}vendor/bootstrap-flat/css/bootstrap-flat.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}vendor/select2/select2.css" rel="stylesheet">
+
+        <link href="{{ STATIC_URL }}stylesheets/main.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li {% ifactive "core.index" %}class="active"{% endifactive %}><a href="{% url "core.index" %}">Index</a></li>
+                    <li {% ifactive "core.list" %}class="active"{% endifactive %}><a href="{% url "core.list" %}">List</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="{% url "core.index" %}">Cashout</a></h3>
+            </div>
+
+            <div id="pjax_container">
+                {% block content %}{% endblock %}
+            </div>
+
+            <div class="footer">
+                <p>&copy; Raitis (daGrevis) Stengrevics</p>
+            </div>
+        </div>
+
+        <script src="{{ STATIC_URL }}vendor/jquery/jquery.js"></script>
+        <script src="{{ STATIC_URL }}vendor/select2/select2.js"></script>
+
+        <script src="{{ STATIC_URL }}scripts/main.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

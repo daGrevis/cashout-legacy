@@ -1,0 +1,10 @@
+/bin/
+/include/
+/lib/
+/share/
+*.py[co]
+*.sqlite3
+**/.sass-cache/
+**/static/vendor/
+**/static/scripts/*.js
+**/static/stylesheets/*.css

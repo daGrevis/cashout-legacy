@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+
+{% block content %}
+
+    <div class="well">
+        <form>
+            {{ payment_filter.form|bootstrap }}
+            <button class="btn btn-primary">Filter it</button>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+        </tr>
+        {% for payment in payments %}
+            <tr>
+                <td>{{ payment.title }}</td>
+                <td>{{ payment.price }} {{ settings.DEFAULT_CURRENCY }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% include "blocks/pagination.html" with objects=payments paginator=payment_paginator%}
+
+{% endblock %}
