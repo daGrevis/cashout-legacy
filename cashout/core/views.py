@@ -32,8 +32,13 @@ def payment_list(request):
         payments = payment_paginator.page(1)
     except EmptyPage:
         payments = payment_paginator.page(payment_paginator.num_pages)
-    return render(request, "list.html", {
+    return render(request, "payment_list.html", {
         "payment_filter": payment_filter,
         "payment_paginator": payment_paginator,
         "payments": payments,
+    })
+
+
+def payment_item(request, payment_pk):
+    return render(request, "payment_item.html", {
     })
