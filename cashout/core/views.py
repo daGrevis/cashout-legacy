@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 
@@ -40,5 +40,14 @@ def payment_list(request):
 
 
 def payment_item(request, payment_pk):
+    payment = get_object_or_404(Payment, pk=payment_pk)
+    if request.method == "POST":
+        payment_form = PaymentForm(request.POST, instance=payment)
+        if payment_form.is_valid():
+            payment_form.save()
+            return redirect("core.payment_item", payment_pk=payment_pk)
+    else:
+        payment_form = PaymentForm(instance=payment)
     return render(request, "payment_item.html", {
+        "payment_form": payment_form,
     })

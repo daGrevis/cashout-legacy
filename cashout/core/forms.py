@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField
+from django.forms import ModelForm
 
 from core.models import Payment
 
@@ -6,5 +6,3 @@ from core.models import Payment
 class PaymentForm(ModelForm):
     class Meta(object):
         model = Payment
-
-    tags = CharField()  # Resets widget to the default.

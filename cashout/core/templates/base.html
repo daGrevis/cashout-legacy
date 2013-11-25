@@ -21,7 +21,7 @@
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li {% ifactive "core.index" %}class="active"{% endifactive %}><a href="{% url "core.index" %}">Index</a></li>
-                    <li {% ifactive "core.payment_list" %}class="active"{% endifactive %}><a href="{% url "core.payment_list" %}">List</a></li>
+                    <li {% ifstartswith "/payments/" %}class="active"{% endifstartswith %}><a href="{% url "core.payment_list" %}">List</a></li>
                 </ul>
                 <h3 class="text-muted"><a href="{% url "core.index" %}">Cashout</a></h3>
             </div>

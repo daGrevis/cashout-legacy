@@ -18,7 +18,7 @@
         </tr>
         {% for payment in payments %}
             <tr>
-                <td>{{ payment.title }}</td>
+                <td><a href="{% url "core.payment_item" payment.pk %}">{{ payment.title }}</a></td>
                 <td>{{ payment.price }} {{ settings.DEFAULT_CURRENCY }}</td>
             </tr>
         {% endfor %}

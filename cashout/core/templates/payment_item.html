@@ -1,1 +1,15 @@
-Hello, world!
+{% extends "base.html" %}
+
+{% load bootstrap %}
+
+{% block content %}
+
+    <div class="well">
+        <form method="POST">
+            {% csrf_token %}
+            {{ payment_form|bootstrap }}
+            <button class="btn btn-primary">Submit it</button>
+        </form>
+    </div>
+
+{% endblock %}
