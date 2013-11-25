@@ -1,6 +1,6 @@
 {
     "name": "Cashout",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "dependencies": {
         "bootstrap": "latest",
         "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
