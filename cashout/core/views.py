@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.contrib import messages
 
 from core.models import Payment, get_balace
 from core.forms import PaymentForm
@@ -45,6 +46,7 @@ def payment_item(request, payment_pk):
         payment_form = PaymentForm(request.POST, instance=payment)
         if payment_form.is_valid():
             payment_form.save()
+            messages.success(request, "Payment was successfully updated!")
             return redirect("core.payment_item", payment_pk=payment_pk)
     else:
         payment_form = PaymentForm(instance=payment)

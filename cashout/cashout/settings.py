@@ -50,6 +50,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.static",
     "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages",
     "core.context_processors.settings",
 )
 
@@ -58,3 +59,8 @@ CASHOUT_VERSION = (0, 0, 1)
 PER_PAGE = 5
 
 DEFAULT_CURRENCY = "BTC"
+
+DJANGO_MESSAGES_TO_BOOTSTRAP_ALERTS = {
+    "debug": "info",
+    "error": "danger",
+}

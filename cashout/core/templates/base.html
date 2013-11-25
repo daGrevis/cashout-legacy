@@ -1,5 +1,7 @@
 {% load activelink %}
 
+{% load bootstrap_messages %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,9 +28,13 @@
                 <h3 class="text-muted"><a href="{% url "core.index" %}">Cashout</a></h3>
             </div>
 
-            <div id="pjax_container">
-                {% block content %}{% endblock %}
-            </div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|bootstrap_messages }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% block content %}{% endblock %}
 
             <div class="footer">
                 <p>&copy; Raitis (daGrevis) Stengrevics</p>
