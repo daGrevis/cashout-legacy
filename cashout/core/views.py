@@ -22,7 +22,7 @@ def index(request):
     })
 
 
-def list(request):
+def payment_list(request):
     payment_filter = PaymentFilter(request.GET, queryset=Payment.objects)
     payment_paginator = Paginator(payment_filter.qs, settings.PER_PAGE)
     page = request.GET.get("page")

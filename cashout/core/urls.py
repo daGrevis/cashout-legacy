@@ -6,5 +6,5 @@ from core import views as core_views
 urlpatterns = patterns(
     "",
     url(r"^$", core_views.index, name="core.index"),
-    url(r"^list/$", core_views.list, name="core.list"),
+    url(r"^payments/$", core_views.payment_list, name="core.payment_list"),
 )
