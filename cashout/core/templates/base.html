@@ -11,10 +11,11 @@
 
         <title>Cashout</title>
 
+        <link href="{{ STATIC_URL }}vendor/nprogress/nprogress.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/bootstrap-flat/css/bootstrap-flat.css" rel="stylesheet">
-        <link href="{{ STATIC_URL }}vendor/select2/select2.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/ladda-bootstrap/dist/ladda-themeless.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}vendor/select2/select2.css" rel="stylesheet">
 
         <link href="{{ STATIC_URL }}stylesheets/main.css" rel="stylesheet">
     </head>
@@ -43,9 +44,10 @@
         </div>
 
         <script src="{{ STATIC_URL }}vendor/jquery/jquery.js"></script>
-        <script src="{{ STATIC_URL }}vendor/select2/select2.js"></script>
+        <script src="{{ STATIC_URL }}vendor/nprogress/nprogress.js"></script>
         <script src="{{ STATIC_URL }}vendor/ladda-bootstrap/dist/spin.js"></script>
         <script src="{{ STATIC_URL }}vendor/ladda-bootstrap/dist/ladda.js"></script>
+        <script src="{{ STATIC_URL }}vendor/select2/select2.js"></script>
 
         <script src="{{ STATIC_URL }}scripts/main.js"></script>
         {% block scripts %}{% endblock %}

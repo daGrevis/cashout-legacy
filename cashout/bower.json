@@ -6,6 +6,7 @@
         "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
         "jquery": "latest",
         "ladda-bootstrap": "latest",
+        "nprogress": "latest",
         "select2": "latest"
     }
 }
