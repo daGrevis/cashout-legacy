@@ -5,6 +5,6 @@
         "bootstrap": "latest",
         "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
         "jquery": "latest",
-        "select3": "latest"
+        "select2": "latest"
     }
 }
