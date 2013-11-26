@@ -2,7 +2,13 @@
 
 {% block content %}
 
-    <div id="burndown_graph"></div>
+    <div id="burndown_graph" data-graph_data="{{ graph_data }}"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link href="{{ STATIC_URL }}vendor/rickshaw/rickshaw.css" rel="stylesheet">
 
 {% endblock %}
 

@@ -1,12 +1,17 @@
-burndown_graph = new Rickshaw.Graph
-    element: $("#burndown_graph").get(0)
+$graph = $("#burndown_graph")
+data = $graph.data "graph_data"
+graph = new Rickshaw.Graph
+    element: $graph.get(0)
     renderer: "line"
     series: [
-        data: [
-            { x: 0, y: 40 }
-            { x: 1, y: 49 }
-        ]
-        color: "steelblue"
+        {
+            data: data["spent"]
+            color: "steelblue"
+        }
+        {
+            data: data["available"]
+            color: "lightblue"
+        }
     ]
-
-burndown_graph.render()
+Rickshaw.Graph.Axis.Time graph: graph
+graph.render()
