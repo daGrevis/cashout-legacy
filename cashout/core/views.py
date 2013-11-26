@@ -53,3 +53,8 @@ def payment_item(request, payment_pk):
     return render(request, "payment_item.html", {
         "payment_form": payment_form,
     })
+
+
+def burndown_graph(request):
+    return render(request, "burndown_graph.html", {
+    })
