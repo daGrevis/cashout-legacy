@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import Payment, get_balace
+from core.models import Payment, get_balace, get_available_for_burndown_graph
 from core.forms import PaymentForm
 from core.filters import PaymentFilter
 
@@ -59,17 +59,13 @@ def payment_item(request, payment_pk):
 
 def burndown_graph(request):
     graph_data = {
-        "available": [
-            {"x": 1385491640, "y": 10},
-            {"x": 1385491640 + 60 * 60 * 8, "y": 45},
-            {"x": 1385491640 + 60 * 60 * 24, "y": 100},
-        ],
         "spent": [
             {"x": 1385491640, "y": 20},
             {"x": 1385491640 + 60 * 60 * 8, "y": 40},
             {"x": 1385491640 + 60 * 60 * 24, "y": 75},
         ],
     }
+    graph_data["available"] = get_available_for_burndown_graph(100.)
     graph_data = json.dumps(graph_data)
     return render(request, "burndown_graph.html", {
         "graph_data": graph_data,

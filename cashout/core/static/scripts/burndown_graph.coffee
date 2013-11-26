@@ -10,7 +10,7 @@ graph = new Rickshaw.Graph
         }
         {
             data: data["available"]
-            color: "lightblue"
+            color: "#e5e5e5"
         }
     ]
 Rickshaw.Graph.Axis.Time graph: graph
