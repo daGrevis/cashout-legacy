@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -5,7 +6,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import Payment, get_balace, get_available_for_burndown_graph
+from core.models import (Payment, get_ideal_for_burndown_graph,
+                         get_actual_for_burndown_graph)
 from core.forms import PaymentForm
 from core.filters import PaymentFilter
 
@@ -18,7 +20,7 @@ def index(request):
             return redirect("core.index")
     else:
         payment_form = PaymentForm()
-    balance = get_balace()
+    balance = Payment.get_balance(Payment.objects)
     return render(request, "index.html", {
         "payment_form": payment_form,
         "balance": balance,
@@ -58,14 +60,16 @@ def payment_item(request, payment_pk):
 
 
 def burndown_graph(request):
+    payments_in_month = Payment.objects.filter(created__month=
+                                               (datetime.now()).month)
+    start_balance = Payment.get_balance(payments_in_month.filter(price__gt=0))
+    ideal = get_ideal_for_burndown_graph(start_balance)
+    actual = (get_actual_for_burndown_graph(
+              start_balance, payments_in_month.filter(price__lt=0)))
     graph_data = {
-        "spent": [
-            {"x": 1385491640, "y": 20},
-            {"x": 1385491640 + 60 * 60 * 8, "y": 40},
-            {"x": 1385491640 + 60 * 60 * 24, "y": 75},
-        ],
+        "ideal": ideal,
+        "actual": actual,
     }
-    graph_data["available"] = get_available_for_burndown_graph(100.)
     graph_data = json.dumps(graph_data)
     return render(request, "burndown_graph.html", {
         "graph_data": graph_data,
