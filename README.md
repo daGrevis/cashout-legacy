@@ -4,10 +4,10 @@ W(very)IP.
 
 ## Some Screenshots
 
-![index](https://github.com/daGrevis/cashout/blob/master/screenshots/index.png).
+![index](https://dl.dropboxusercontent.com/u/3674268/cashout_screenshots/index.png)
 
-![payments](https://github.com/daGrevis/cashout/blob/master/screenshots/payments.png).
+![payments](https://dl.dropboxusercontent.com/u/3674268/cashout_screenshots/payments.png)
 
-![payment](https://github.com/daGrevis/cashout/blob/master/screenshots/payment.png).
+![payment](https://dl.dropboxusercontent.com/u/3674268/cashout_screenshots/payment.png)
 
-![burndown](https://github.com/daGrevis/cashout/blob/master/screenshots/burndown.png).
+![burndown](https://dl.dropboxusercontent.com/u/3674268/cashout_screenshots/burndown.png)
