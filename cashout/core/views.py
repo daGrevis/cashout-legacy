@@ -46,6 +46,10 @@ def payment_list(request):
 
 def payment_item(request, payment_pk):
     payment = get_object_or_404(Payment, pk=payment_pk)
+    if "delete" in request.GET:
+        payment.delete()
+        messages.success(request, "Payment was successfully deleted!")
+        return redirect("core.payment_list")
     if request.method == "POST":
         payment_form = PaymentForm(request.POST, instance=payment)
         if payment_form.is_valid():
@@ -56,6 +60,7 @@ def payment_item(request, payment_pk):
         payment_form = PaymentForm(instance=payment)
     return render(request, "payment_item.html", {
         "payment_form": payment_form,
+        "payment_pk": payment.pk,
     })
 
 

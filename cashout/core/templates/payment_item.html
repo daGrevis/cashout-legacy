@@ -5,10 +5,11 @@
 {% block content %}
 
     <div class="well">
-        <form method="POST">
+        <form method="post">
             {% csrf_token %}
             {{ payment_form|bootstrap }}
             <button class="btn btn-primary ladda-button" data-style="expand-right">Edit it</button>
+            <a href="{% url "core.payment_item" payment_pk %}?delete" class="text-btn text-danger confirm">Delete it</a>
         </form>
     </div>
 

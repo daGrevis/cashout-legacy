@@ -10,5 +10,12 @@ $(document).ready ->
         width: "resolve"
         tokenSeparators: [","]
 
+    $(".confirm").click (event) ->
+        $el = $(@)
+        event.preventDefault()
+        bootbox.confirm "Are you really sure? It can't be undone.", (result) ->
+            if result
+                location.href = $el.attr "href"
+
 $(window).load ->
     NProgress.done()
