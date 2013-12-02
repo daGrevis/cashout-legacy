@@ -4,4 +4,5 @@ django-activelink
 django-bootstrap-form
 django-extensions
 django-filter
+django-jsonview
 django-taggit

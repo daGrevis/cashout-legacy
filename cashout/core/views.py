@@ -1,6 +1,9 @@
 from datetime import datetime
 import json
 
+from jsonview.decorators import json_view
+from taggit.models import Tag
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -62,6 +65,17 @@ def payment_item(request, payment_pk):
         "payment_form": payment_form,
         "payment_pk": payment.pk,
     })
+
+
+@json_view
+def tags(request):
+    query = (request.GET).get("query")
+    tags = Tag.objects
+    if query:
+        tags = tags.filter(name__icontains=query)
+    tags = tags.values_list("name", flat=True)
+    tags = list(tags)
+    return {"tags": tags}
 
 
 def burndown_graph(request):
