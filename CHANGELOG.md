@@ -1,5 +1,12 @@
 # Changelog
 
+0.0.4 (13/12/02):
+
+* Ability to delete payments (with confirm),
+* Auto-complete for tags,
+* Add colors for price ranges,
+* Add rows in payment table to be clickable;
+
 0.0.3 (13/11/27):
 
 * Add screenshots,
