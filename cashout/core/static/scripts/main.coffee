@@ -14,6 +14,7 @@ $(document).ready ->
             dataType: "json"
             data: (term) -> query: term
             results: (data) -> results: $.map data.tags, (el) -> id: el, text: el
+        initSelection: ($el, callback) -> callback $.map (($el.val()).split ","), (el) -> id: el, text: el
 
     $(".confirm").click (event) ->
         $el = $(@)
