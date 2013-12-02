@@ -17,7 +17,7 @@
             <th>Price</th>
         </tr>
         {% for payment in payments %}
-            <tr>
+            <tr class="clickable_row">
                 <td><a href="{% url "core.payment_item" payment.pk %}">{{ payment.title }}</a></td>
                 <td><span class="{% if payment.is_income %}text-success{% elif payment.is_expense %}text-danger{% endif %}">{{ payment.price }} {{ settings.DEFAULT_CURRENCY }}</span></td>
             </tr>

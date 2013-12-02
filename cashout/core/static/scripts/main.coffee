@@ -17,5 +17,8 @@ $(document).ready ->
             if result
                 location.href = $el.attr "href"
 
+    $(".clickable_row").click ->
+        location.href = $("td > a", @).prop("href")
+
 $(window).load ->
     NProgress.done()
