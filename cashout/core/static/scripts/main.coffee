@@ -3,7 +3,7 @@ NProgress.configure trickle: false, speed: 200
 $(document).ready ->
     NProgress.start()
 
-    Ladda.bind("button.ladda-button")
+    Ladda.bind(".ladda-button")
 
     $("[name='tags']").select2
         tags: []
