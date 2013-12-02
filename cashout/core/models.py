@@ -27,6 +27,12 @@ class Payment(models.Model):
         balance = queryset.aggregate(models.Sum("price"))["price__sum"]
         return balance or 0
 
+    def is_income(self):
+        return self.price > 0
+
+    def is_expense(self):
+        return self.price < 0
+
 
 def get_count_of_days_in_month(year, month):
     _, days_in_month = calendar.monthrange(year, month)
