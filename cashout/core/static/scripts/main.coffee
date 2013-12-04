@@ -5,6 +5,7 @@ $(document).ready ->
 
     Ladda.bind(".ladda-button")
 
+    term_to_select2_object = (term) -> id: term, text: term
     $("[name='tags']").select2
         width: "resolve"
         tokenSeparators: [","]
@@ -13,8 +14,9 @@ $(document).ready ->
             url: "/tags/"
             dataType: "json"
             data: (term) -> query: term
-            results: (data) -> results: $.map data.tags, (el) -> id: el, text: el
-        initSelection: ($el, callback) -> callback $.map (($el.val()).split ","), (el) -> id: el, text: el
+            results: (data) -> results: $.map data.tags, term_to_select2_object
+        initSelection: ($tag, callback) -> callback $.map (($tag.val()).split ","), term_to_select2_object
+        createSearchChoice: term_to_select2_object
 
     $(".confirm").click (event) ->
         $el = $(@)
