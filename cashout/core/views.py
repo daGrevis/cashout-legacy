@@ -40,6 +40,8 @@ def payment_list(request):
         payments = payment_paginator.page(1)
     except EmptyPage:
         payments = payment_paginator.page(payment_paginator.num_pages)
+    if not payments:
+        messages.warning(request, "No payments were found!")
     return render(request, "payment_list.html", {
         "payment_filter": payment_filter,
         "payment_paginator": payment_paginator,
