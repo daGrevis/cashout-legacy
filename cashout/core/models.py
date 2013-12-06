@@ -16,7 +16,7 @@ class Payment(models.Model):
     created = CreationDateTimeField(editable=True)
     modified = ModificationDateTimeField()
     title = models.CharField(max_length=255, db_index=True)
-    description = models.TextField(default=None, blank=True)
+    description = models.TextField(default="", blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2)
 
     def __unicode__(self):
