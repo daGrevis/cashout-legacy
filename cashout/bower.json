@@ -5,6 +5,7 @@
         "bootbox": "latest",
         "bootstrap": "latest",
         "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
+        "bootstrap3-datetimepicker": "latest",
         "jquery": "latest",
         "ladda-bootstrap": "latest",
         "nprogress": "latest",

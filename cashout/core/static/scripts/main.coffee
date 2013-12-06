@@ -1,3 +1,7 @@
+ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
+
+term_to_select2_object = (term) -> id: term, text: term
+
 NProgress.configure trickle: false, speed: 200
 
 $(document).ready ->
@@ -5,7 +9,6 @@ $(document).ready ->
 
     Ladda.bind(".ladda-button")
 
-    term_to_select2_object = (term) -> id: term, text: term
     $("[name='tags']").select2
         width: "resolve"
         tokenSeparators: [","]
@@ -27,6 +30,8 @@ $(document).ready ->
 
     $(".clickable_row").click ->
         location.href = $("td > a", @).prop("href")
+
+    $("[name='created']").datetimepicker format: ISO_8601_DATEFORMAT_PLACEHOLDER
 
 $(window).load ->
     NProgress.done()
