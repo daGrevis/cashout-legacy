@@ -70,10 +70,11 @@ def payment_item(request, payment_pk):
 @json_view
 def tags(request):
     query = (request.GET).get("query")
-    tags = Tag.objects
+    tags = Payment.tags.most_common()
     if query:
         tags = tags.filter(name__icontains=query)
-    tags = tags.values_list("name", flat=True)
+    # TODO: A bug? https://github.com/alex/django-taggit/issues/173
+    tags = [name for name, _ in tags.values_list("name", "num_times")]
     tags = list(tags)
     return {"tags": tags}
 
