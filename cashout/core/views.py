@@ -19,6 +19,7 @@ def index(request):
         payment_form = IndexForm(request.POST)
         if payment_form.is_valid():
             payment_form.save()
+            messages.success(request, "Payment was successfully added!")
             return redirect("core.index")
     else:
         payment_form = IndexForm()
