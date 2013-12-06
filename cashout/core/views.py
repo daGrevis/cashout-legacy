@@ -2,7 +2,6 @@ from datetime import datetime
 import json
 
 from jsonview.decorators import json_view
-from taggit.models import Tag
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,18 +10,18 @@ from django.contrib import messages
 
 from core.models import (Payment, get_ideal_for_burndown_graph,
                          get_actual_for_burndown_graph)
-from core.forms import PaymentForm
+from core.forms import IndexForm, PaymentForm
 from core.filters import PaymentFilter
 
 
 def index(request):
     if request.method == "POST":
-        payment_form = PaymentForm(request.POST)
+        payment_form = IndexForm(request.POST)
         if payment_form.is_valid():
             payment_form.save()
             return redirect("core.index")
     else:
-        payment_form = PaymentForm()
+        payment_form = IndexForm()
     balance = Payment.get_balance(Payment.objects)
     return render(request, "index.html", {
         "payment_form": payment_form,

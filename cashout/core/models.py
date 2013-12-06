@@ -13,7 +13,7 @@ from django_extensions.db.fields import (CreationDateTimeField,
 class Payment(models.Model):
     tags = TaggableManager()
 
-    created = CreationDateTimeField()
+    created = CreationDateTimeField(editable=True)
     modified = ModificationDateTimeField()
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField(default=None, blank=True)
