@@ -7,8 +7,8 @@ class IndexForm(ModelForm):
     class Meta(object):
         model = Payment
         fields = (
-            "price",
             "title",
+            "price",
             "tags",
         )
 
