@@ -10,6 +10,6 @@
         "ladda-bootstrap": "latest",
         "nprogress": "latest",
         "rickshaw": "latest",
-        "select2": "latest"
+        "selectize": "latest"
     }
 }

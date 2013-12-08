@@ -1,9 +1,9 @@
-from django.forms import ModelForm
+from django import forms
 
 from core.models import Payment
 
 
-class IndexForm(ModelForm):
+class IndexForm(forms.ModelForm):
     class Meta(object):
         model = Payment
         fields = (
@@ -13,7 +13,7 @@ class IndexForm(ModelForm):
         )
 
 
-class PaymentForm(ModelForm):
+class PaymentForm(forms.ModelForm):
     class Meta(object):
         model = Payment
         fields = (

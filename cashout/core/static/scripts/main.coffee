@@ -1,6 +1,6 @@
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 
-window.text_to_select2_object = (text) -> id: text, text: text
+window.text_to_selectize_object = (title) -> value: title, text: title
 
 NProgress.configure trickle: false, speed: 200
 
@@ -9,17 +9,13 @@ $(document).ready ->
 
     Ladda.bind(".ladda-button")
 
-    $("[name='tags']").select2
-        width: "resolve"
-        tokenSeparators: [","]
-        tags: true
-        ajax:
-            url: "/payment_tags/"
-            dataType: "json"
-            data: (term) -> query: term
-            results: (data) -> results: $.map data.tags, text_to_select2_object
-        initSelection: ($tag, callback) -> callback $.map (($tag.val()).split ","), text_to_select2_object
-        createSearchChoice: text_to_select2_object
+    $("[name='tags']").selectize
+        create: true
+        load: (query, callback) ->
+            if not query.length
+                return callback()
+            $.getJSON "/payment_tags/?query=#{ query }", (response) ->
+                callback $.map response.tags, text_to_selectize_object
 
     $(".confirm").click (event) ->
         $el = $(@)
