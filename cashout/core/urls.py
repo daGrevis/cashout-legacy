@@ -31,6 +31,11 @@ urlpatterns = patterns(
         name="core.payment_titles",
     ),
     url(
+        r"^payment_guess/$",
+        core_views.payment_guess,
+        name="core.payment_guess",
+    ),
+    url(
         r"^graphs/burndown/$",
         core_views.burndown_graph,
         name="core.burndown_graph",

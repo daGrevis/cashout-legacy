@@ -93,6 +93,23 @@ def payment_titles(request):
     return {"titles": titles}
 
 
+@json_view
+def payment_guess(request):
+    """Tries to guess payment by it's title and returns price and tags."""
+    if "title" not in request.GET:
+        return None
+    title = request.GET["title"]
+    payments = Payment.objects.filter(title=title).order_by("-created")
+    try:
+        payment = payments[0]
+    except IndexError:
+        # No match.
+        return None
+    price = round(payment.price, 2)
+    tags = list(payment.tags.all().values_list("name", flat=True))
+    return {"price": price, "tags": tags}
+
+
 def burndown_graph(request):
     payments_in_month = Payment.objects.filter(created__month=
                                                (datetime.now()).month)
