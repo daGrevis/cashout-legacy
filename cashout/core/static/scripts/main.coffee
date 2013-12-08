@@ -1,6 +1,6 @@
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 
-term_to_select2_object = (term) -> id: term, text: term
+window.text_to_select2_object = (text) -> id: text, text: text
 
 NProgress.configure trickle: false, speed: 200
 
@@ -14,12 +14,12 @@ $(document).ready ->
         tokenSeparators: [","]
         tags: true
         ajax:
-            url: "/tags/"
+            url: "/payment_tags/"
             dataType: "json"
             data: (term) -> query: term
-            results: (data) -> results: $.map data.tags, term_to_select2_object
-        initSelection: ($tag, callback) -> callback $.map (($tag.val()).split ","), term_to_select2_object
-        createSearchChoice: term_to_select2_object
+            results: (data) -> results: $.map data.tags, text_to_select2_object
+        initSelection: ($tag, callback) -> callback $.map (($tag.val()).split ","), text_to_select2_object
+        createSearchChoice: text_to_select2_object
 
     $(".confirm").click (event) ->
         $el = $(@)

@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from collections import OrderedDict
 
 from jsonview.decorators import json_view
 
@@ -70,15 +71,26 @@ def payment_item(request, payment_pk):
 
 
 @json_view
-def tags(request):
+def payment_tags(request):
     query = (request.GET).get("query")
     tags = Payment.tags.most_common()
     if query:
         tags = tags.filter(name__icontains=query)
     # TODO: A bug? https://github.com/alex/django-taggit/issues/173
     tags = [name for name, _ in tags.values_list("name", "num_times")]
-    tags = list(tags)
     return {"tags": tags}
+
+
+@json_view
+def payment_titles(request):
+    query = (request.GET).get("query")
+    title_qs = Payment.objects.order_by("-created")
+    if query:
+        title_qs = title_qs.filter(title__icontains=query)
+    titles = list((title_qs.values_list("title", flat=True)))
+    # Removes duplicates. Can't use sets here because order is important.
+    titles = list(OrderedDict.fromkeys(titles))
+    return {"titles": titles}
 
 
 def burndown_graph(request):
