@@ -1,6 +1,5 @@
 $ ->
-    $title = $("[name='title']")
-    $title.selectize
+    $("[name='title']").selectize
         create: true
         maxItems: 1
         load: (query, callback) ->
@@ -10,7 +9,9 @@ $ ->
         onChange: (value) ->
             $.getJSON "/payment_guess/?title=#{ value }", (response) ->
                 return unless response
+                console.log response.tags
                 $("[name='price']").val response.price
-                $tags = $("[name='tags']")
-                $tags.val response.tags
-                $tags.trigger "change"
+                selectize_tags = $("[name='tags']")[0].selectize
+                $.each response.tags, (i, tag) ->
+                    selectize_tags.addOption text_to_selectize_object tag
+                    selectize_tags.addItem tag
