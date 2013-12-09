@@ -1,5 +1,17 @@
 # Changelog
 
+0.0.5 (13/12/09):
+
+* Improve header to be more responsive (mobile-first),
+* Add auto-complete for payment titles,
+* Add guess for payments (tries to guess price and tags based on payment title),
+* Improve auto-complete for payment tags,
+* Rewrite inputs to use selectize.js instead of select2,
+* Ability to close alerts and auto-close after X seconds,
+* Add alert on adding payment and when there are no payments found,
+* Ability to change date and time of payment,
+* Some changes to form fields;
+
 0.0.4 (13/12/02):
 
 * Ability to delete payments (with confirm),
