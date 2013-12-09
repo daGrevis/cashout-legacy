@@ -39,6 +39,7 @@
 
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags|bootstrap_messages }}">
+                    <button class="close">&times;</button>
                     {{ message }}
                 </div>
             {% endfor %}

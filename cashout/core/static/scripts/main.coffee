@@ -1,4 +1,7 @@
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
+DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
+
+delay = (ms, callable) -> setTimeout callable, ms
 
 window.text_to_selectize_object = (title) -> value: title, text: title
 
@@ -28,6 +31,11 @@ $(document).ready ->
         location.href = $("td > a", @).prop("href")
 
     $("[name='created']").datetimepicker format: ISO_8601_DATEFORMAT_PLACEHOLDER
+
+    $(".alert").click (event) ->
+        $(@).slideUp()
+
+    delay DELAY_BEFORE_HIDE_ALERTS, -> $(".alert").slideUp()
 
 $(window).load ->
     NProgress.done()
