@@ -9,8 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import (Payment, get_ideal_for_burndown_graph,
-                         get_actual_for_burndown_graph)
+from core.models import Payment, get_data_for_burndown_graph
 from core.forms import IndexForm, PaymentForm
 from core.filters import PaymentFilter
 
@@ -24,7 +23,7 @@ def index(request):
             return redirect("core.index")
     else:
         payment_form = IndexForm()
-    balance = Payment.get_balance(Payment.objects)
+    balance = Payment.get_price(Payment.objects)
     return render(request, "index.html", {
         "payment_form": payment_form,
         "balance": balance,
@@ -111,16 +110,8 @@ def payment_guess(request):
 
 
 def burndown_graph(request):
-    payments_in_month = Payment.objects.filter(created__month=
-                                               (datetime.now()).month)
-    start_balance = Payment.get_balance(payments_in_month.filter(price__gt=0))
-    ideal = get_ideal_for_burndown_graph(start_balance)
-    actual = (get_actual_for_burndown_graph(
-              start_balance, payments_in_month.filter(price__lt=0)))
-    graph_data = {
-        "ideal": ideal,
-        "actual": actual,
-    }
+    payments = Payment.objects.filter(created__month=(datetime.now()).month)
+    graph_data = get_data_for_burndown_graph(payments)
     graph_data = json.dumps(graph_data)
     return render(request, "burndown_graph.html", {
         "graph_data": graph_data,
