@@ -10,7 +10,6 @@ class PaymentFilter(django_filters.FilterSet):
         model = Payment
         fields = (
             "title",
-            "price",
         )
         order_by = (
             "-created",
