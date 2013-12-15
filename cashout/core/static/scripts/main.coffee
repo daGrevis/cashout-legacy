@@ -1,3 +1,5 @@
+MIDDLE_CLICK = 2
+
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
 
@@ -28,8 +30,12 @@ $(document).ready ->
             if result
                 location.href = $el.attr "href"
 
-    $(".clickable_row").click ->
-        location.href = $("td > a", @).prop("href")
+    $(".clickable_row").click (event) ->
+        url = $("td > a", @).prop("href")
+        if event.which == MIDDLE_CLICK
+            window.open url, "_blank"
+            return
+        location.href = url
 
     $("[name='created']").datetimepicker format: ISO_8601_DATEFORMAT_PLACEHOLDER
 
