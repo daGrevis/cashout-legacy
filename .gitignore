@@ -8,3 +8,5 @@
 **/static/vendor/
 **/static/scripts/*.js
 **/static/stylesheets/*.css
+/cashout/cashout/dev_settings.py
+/cashout/cashout/prod_settings.py
