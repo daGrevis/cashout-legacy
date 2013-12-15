@@ -15,7 +15,10 @@ $(document).ready ->
     Ladda.bind(".ladda-button")
 
     $("[name='tags']").selectize
-        plugins: ["remove_button"]
+        plugins: [
+            "remove_button",
+            "restore_on_backspace",
+        ]
         create: true
         load: (query, callback) ->
             if not query.length

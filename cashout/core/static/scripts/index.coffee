@@ -1,5 +1,8 @@
 $ ->
     $("[name='title']").selectize
+        plugins: [
+            "restore_on_backspace",
+        ]
         create: true
         maxItems: 1
         load: (query, callback) ->
