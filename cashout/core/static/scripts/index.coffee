@@ -12,11 +12,12 @@ $ ->
         onChange: (value) ->
             $.getJSON "/payment_guess/?title=#{ value }", (response) ->
                 $price = $("[name='price']")
-                selectize_tags = $("[name='tags']")[0].selectize
-                $price.val ""
-                selectize_tags.clear()
+                $tags = $("[name='tags']")
+                selectize_tags = $tags[0].selectize
                 return unless response
-                $price.val response.price
-                $.each response.tags, (i, tag) ->
-                    selectize_tags.addOption text_to_selectize_object tag
-                    selectize_tags.addItem tag
+                if not $price.val()
+                    $price.val response.price
+                if not $tags.val()
+                    $.each response.tags, (i, tag) ->
+                        selectize_tags.addOption text_to_selectize_object tag
+                        selectize_tags.addItem tag
