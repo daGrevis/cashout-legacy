@@ -2,12 +2,12 @@ from datetime import datetime
 import calendar
 
 from arrow import Arrow
-
 from taggit.managers import TaggableManager
-
-from django.db import models
 from django_extensions.db.fields import (CreationDateTimeField,
                                          ModificationDateTimeField)
+
+from django.db import models
+from django.conf import settings
 
 
 class PaymentQS(models.query.QuerySet):
@@ -24,6 +24,9 @@ class PaymentManager(models.Manager):
 
 
 class Payment(models.Model):
+    CURRENCY_CHOICES = [(currency, currency) for currency
+                        in settings.CURRENCIES]
+
     objects = PaymentManager()
     tags = TaggableManager()
 
@@ -32,6 +35,8 @@ class Payment(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField(default="", blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2)
+    currency = (models.CharField(max_length=3,
+                choices=CURRENCY_CHOICES, default=settings.DEFAULT_CURRENCY))
 
     def __unicode__(self):
         return u"title: {}, price: {}".format(self.title, self.price)
