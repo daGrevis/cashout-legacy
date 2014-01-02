@@ -20,6 +20,7 @@ class PaymentForm(forms.ModelForm):
             "title",
             "description",
             "price",
+            "currency",
             "tags",
             "created",
         )

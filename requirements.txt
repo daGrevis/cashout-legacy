@@ -6,4 +6,5 @@ django-extensions
 django-filter
 django-jsonview
 django-taggit
+requests
 south

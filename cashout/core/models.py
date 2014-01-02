@@ -1,7 +1,10 @@
 from datetime import datetime
 import calendar
+import json
+from decimal import Decimal
 
 from arrow import Arrow
+import requests
 from taggit.managers import TaggableManager
 from django_extensions.db.fields import (CreationDateTimeField,
                                          ModificationDateTimeField)
@@ -81,3 +84,66 @@ def get_data_for_burndown_graph(payments):
             "y": round(actual_balance, 2),
         })
     return data
+
+
+class GoogleExchangeBackend(object):
+    def get_url(self, currency_from, currency_to):
+        url = "http://rate-exchange.appspot.com/currency?from={}&to={}"
+        url = url.format(currency_from, currency_to)
+        return url
+
+    def parse_data(self, data):
+        data = json.loads(data)
+        return data
+
+
+class CurrencyRetrievalError(Exception):
+    pass
+
+
+class CurrencyParsingError(Exception):
+    pass
+
+
+class CurrencyConverter(object):
+    cached_currencies = {}
+
+    def __init__(self, backend=GoogleExchangeBackend):
+        self.backend = backend()
+
+    def get_rate(self, currency_from, currency_to):
+        rate_from_cache = self._get_from_cache(currency_from, currency_to)
+        if rate_from_cache:
+            return rate_from_cache
+        url = (self.backend).get_url(currency_from, currency_to)
+        try:
+            data = self._request(url)
+        except requests.exceptions.RequestException:
+            raise CurrencyRetrievalError()
+        try:
+            data = (self.backend).parse_data(data)
+        except ValueError:
+            raise CurrencyParsingError()
+        rate = Decimal(data["rate"]).quantize(Decimal(".01"))
+        self._set_in_cache(currency_from, currency_to, rate)
+        return rate
+
+    def get_price(self, price, currency_from, currency_to):
+        rate = self.get_rate(currency_from, currency_to)
+        return Decimal(price * rate).quantize(Decimal(".01"))
+
+    def _get_from_cache(self, currency_from, currency_to):
+        cache_key = (currency_from, currency_to)
+        return (self.cached_currencies).get(cache_key)
+
+    def _set_in_cache(self, currency_from, currency_to, rate):
+        cache_key = (currency_from, currency_to)
+        self.cached_currencies[cache_key] = rate
+
+    def _request(self, url, attempts=0):
+        try:
+            return (requests.get(url)).content
+        except requests.exceptions.RequestException:
+            if attempts > settings.CURRECY_CONVERTOR_MAX_ATTEMPTS:
+                raise
+            return self._request(url, attempts + 1)

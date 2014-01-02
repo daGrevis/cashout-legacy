@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import Payment, get_data_for_burndown_graph
+from core.models import Payment, get_data_for_burndown_graph, CurrencyConverter
 from core.forms import IndexForm, PaymentForm
 from core.filters import PaymentFilter
 

@@ -71,3 +71,5 @@ DJANGO_MESSAGES_TO_BOOTSTRAP_ALERTS = {
     "debug": "info",
     "error": "danger",
 }
+
+CURRECY_CONVERTOR_MAX_ATTEMPTS = 3
