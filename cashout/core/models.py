@@ -46,7 +46,13 @@ class Payment(models.Model):
 
     @staticmethod
     def get_price(queryset):
-        price = queryset.aggregate(models.Sum("price"))["price__sum"]
+        payments = queryset.all()
+        price = Decimal(0)
+        currency_converter = CurrencyConverter()
+        for payment in payments:
+            price += currency_converter.get_price(payment.price,
+                                                  payment.currency,
+                                                  settings.DEFAULT_CURRENCY)
         return price or 0
 
     def is_income(self):
@@ -112,6 +118,8 @@ class CurrencyConverter(object):
         self.backend = backend()
 
     def get_rate(self, currency_from, currency_to):
+        if currency_from == currency_to:
+            return 1
         rate_from_cache = self._get_from_cache(currency_from, currency_to)
         if rate_from_cache:
             return rate_from_cache
