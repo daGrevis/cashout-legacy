@@ -18,6 +18,7 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     "django_extensions",
 
+    "south",
     "bootstrapform",
     "taggit",
     "activelink",
@@ -58,7 +59,7 @@ CASHOUT_VERSION = (0, 0, 5)
 
 PER_PAGE = 5
 
-DEFAULT_CURRENCY = "BTC"
+DEFAULT_CURRENCY = "EUR"
 
 DJANGO_MESSAGES_TO_BOOTSTRAP_ALERTS = {
     "debug": "info",
