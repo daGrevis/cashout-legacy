@@ -3,6 +3,7 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.conf import settings
 
 
 class Migration(SchemaMigration):
@@ -10,7 +11,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Payment.currency'
         db.add_column(u'core_payment', 'currency',
-                      self.gf('django.db.models.fields.CharField')(default='EUR', max_length=3),
+                      self.gf('django.db.models.fields.CharField')(default=settings.DEFAULT_CURRENCY, max_length=3),
                       keep_default=False)
 
 
