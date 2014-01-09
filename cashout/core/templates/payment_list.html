@@ -14,12 +14,20 @@
     <table class="table table-striped">
         <tr>
             <th>Title</th>
-            <th>Price</th>
+            <th>Price ({{ settings.DEFAULT_CURRENCY }})</th>
+            {% if settings.SECONDARY_CURRENCY %}
+                <th>Price ({{ settings.SECONDARY_CURRENCY }})</th>
+            {% endif %}
         </tr>
         {% for payment in payments %}
             <tr class="clickable_row">
                 <td><a href="{% url "core.payment_item" payment.pk %}">{{ payment.title }}</a></td>
-                <td><span class="{% if payment.is_income %}text-success{% elif payment.is_expense %}text-danger{% endif %}">{{ payment.price }} {{ payment.currency }}</span></td>
+                <td>
+                    <span class="{% if payment.is_income %}text-success{% elif payment.is_expense %}text-danger{% endif %}">{{ payment.price }}</span>
+                </td>
+                {% if settings.SECONDARY_CURRENCY %}
+                    <td class="price_in_secondary_currency">{{ payment.get_price_in_secondary_currency }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

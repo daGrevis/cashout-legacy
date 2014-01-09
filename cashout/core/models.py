@@ -27,6 +27,8 @@ class PaymentManager(models.Manager):
 
 
 class Payment(models.Model):
+    _cache_for_currency_converter = None
+
     CURRENCY_CHOICES = [(currency, currency) for currency
                         in settings.CURRENCIES]
 
@@ -60,6 +62,14 @@ class Payment(models.Model):
 
     def is_expense(self):
         return self.price < 0
+
+    def get_price_in_secondary_currency(self):
+        if self._cache_for_currency_converter is None:
+            self._cache_for_currency_converter = CurrencyConverter()
+        currency_converter = self._cache_for_currency_converter
+        return currency_converter.get_price(self.price,
+                                            settings.DEFAULT_CURRENCY,
+                                            settings.SECONDARY_CURRENCY)
 
 
 def get_data_for_burndown_graph(payments):

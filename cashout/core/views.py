@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import Payment, get_data_for_burndown_graph
+from core.models import Payment, get_data_for_burndown_graph, CurrencyConverter
 from core.forms import IndexForm, PaymentForm
 from core.filters import PaymentFilter
 
@@ -24,9 +24,15 @@ def index(request):
     else:
         payment_form = IndexForm()
     balance = Payment.get_price(Payment.objects)
+    balance_in_secondary_currency = None
+    if settings.SECONDARY_CURRENCY:
+        balance_in_secondary_currency = (CurrencyConverter().get_price(balance,
+                                         settings.DEFAULT_CURRENCY,
+                                         settings.SECONDARY_CURRENCY))
     return render(request, "index.html", {
         "payment_form": payment_form,
         "balance": balance,
+        "balance_in_secondary_currency": balance_in_secondary_currency,
     })
 
 
