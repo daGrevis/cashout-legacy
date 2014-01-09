@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+
+{% block content %}
+
+    <div class="well">
+        <form method="post">
+            {% csrf_token %}
+            {{ balance_reset_form|bootstrap }}
+            <button class="btn btn-primary ladda-button confirm" data-style="expand-right">Reset it</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ STATIC_URL }}scripts/index.js"></script>
+
+{% endblock %}

@@ -64,6 +64,8 @@ class Payment(models.Model):
         return self.price < 0
 
     def get_price_in_secondary_currency(self):
+        if self.currency == settings.SECONDARY_CURRENCY:
+            return self.price
         if self._cache_for_currency_converter is None:
             self._cache_for_currency_converter = CurrencyConverter()
         currency_converter = self._cache_for_currency_converter

@@ -10,7 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 
 from core.models import Payment, get_data_for_burndown_graph, CurrencyConverter
-from core.forms import IndexForm, PaymentForm
+from core.forms import IndexForm, PaymentForm, BalanceResetForm
 from core.filters import PaymentFilter
 
 
@@ -121,4 +121,25 @@ def burndown_graph(request):
     graph_data = json.dumps(graph_data)
     return render(request, "burndown_graph.html", {
         "graph_data": graph_data,
+    })
+
+
+def balance_reset(request):
+    if request.method == "POST":
+        balance_reset_form = BalanceResetForm(request.POST)
+        if balance_reset_form.is_valid():
+            payment = Payment()
+            payment.title = settings.DEFAULT_TITLE_FOR_BALANCE_RESET
+            payment.currency = settings.DEFAULT_CURRENCY
+            balance = Payment.get_price(Payment.objects)
+            payment.price = balance - balance_reset_form.cleaned_data["price"]
+            payment.price *= -1
+            payment.save()
+            payment.tags.add(*settings.DEFAULT_TAGS_FOR_BALANCE_RESET)
+            messages.success(request, "Balance was successfully reset!")
+            return redirect("core.index")
+    else:
+        balance_reset_form = BalanceResetForm()
+    return render(request, "balance_reset.html", {
+        "balance_reset_form": balance_reset_form,
     })

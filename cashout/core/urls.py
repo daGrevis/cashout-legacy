@@ -40,4 +40,9 @@ urlpatterns = patterns(
         core_views.burndown_graph,
         name="core.burndown_graph",
     ),
+    url(
+        r"^balance_reset/$",
+        core_views.balance_reset,
+        name="core.balance_reset",
+    ),
 )

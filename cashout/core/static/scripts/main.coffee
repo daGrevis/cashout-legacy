@@ -31,7 +31,11 @@ $(document).ready ->
         event.preventDefault()
         bootbox.confirm "Are you really sure? It can't be undone.", (result) ->
             if result
-                location.href = $el.attr "href"
+                link = $el.attr "href"
+                if link?
+                    location.href = link
+                else
+                    $($el.parents "form").submit()
 
     $(".clickable_row").click (event) ->
         url = $("td > a", @).prop("href")

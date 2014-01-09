@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 
 from core.models import Payment
 
@@ -24,3 +25,7 @@ class PaymentForm(forms.ModelForm):
             "tags",
             "created",
         )
+
+
+class BalanceResetForm(forms.Form):
+    price = forms.DecimalField(max_digits=9, decimal_places=2)
