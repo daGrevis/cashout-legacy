@@ -125,13 +125,18 @@ def burndown_graph(request):
 
 
 def balance_reset(request):
+    balance = Payment.get_price(Payment.objects)
+    balance_in_secondary_currency = None
+    if settings.SECONDARY_CURRENCY:
+        balance_in_secondary_currency = (CurrencyConverter().get_price(balance,
+                                         settings.DEFAULT_CURRENCY,
+                                         settings.SECONDARY_CURRENCY))
     if request.method == "POST":
         balance_reset_form = BalanceResetForm(request.POST)
         if balance_reset_form.is_valid():
             payment = Payment()
             payment.title = settings.DEFAULT_TITLE_FOR_BALANCE_RESET
             payment.currency = settings.DEFAULT_CURRENCY
-            balance = Payment.get_price(Payment.objects)
             payment.price = balance - balance_reset_form.cleaned_data["price"]
             payment.price *= -1
             payment.save()
@@ -141,5 +146,7 @@ def balance_reset(request):
     else:
         balance_reset_form = BalanceResetForm()
     return render(request, "balance_reset.html", {
+        "balance": balance,
+        "balance_in_secondary_currency": balance_in_secondary_currency,
         "balance_reset_form": balance_reset_form,
     })

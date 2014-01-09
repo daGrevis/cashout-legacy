@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    {% include "blocks/current_balance.html" with balance=balance balance_in_secondary_currency=balance_in_secondary_currency %}
+
     <div class="well">
         <form method="post">
             {% csrf_token %}

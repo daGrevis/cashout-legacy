@@ -4,16 +4,7 @@
 
 {% block content %}
 
-    <div class="jumbotron">
-        <h1>
-            {{ balance }} {{ settings.DEFAULT_CURRENCY }}
-            {% if settings.SECONDARY_CURRENCY %}
-                <span class="price_in_secondary_currency">
-                    {{ balance_in_secondary_currency }} {{ settings.SECONDARY_CURRENCY }}
-                </span>
-            {% endif %}
-        </h1>
-    </div>
+    {% include "blocks/current_balance.html" with balance=balance balance_in_secondary_currency=balance_in_secondary_currency %}
 
     <div class="well">
         <form method="post">
