@@ -1,5 +1,18 @@
 # Changelog
 
+0.0.6 (16/01/14):
+
+* Add support for multiple currencies,
+* Add graphs/frequency,
+* Add reset,
+* Add option to change title and tags on adding payment,
+* Remove price from payment filters,
+* Fix bug with pagination and filters,
+* Fix bug with payment guess overwriting values,
+* Fix bug with using middle-click on table row,
+* Refactor graphs/burndown,
+* Add migrations for database;
+
 0.0.5 (13/12/09):
 
 * Improve header to be more responsive (mobile-first),

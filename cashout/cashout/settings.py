@@ -55,7 +55,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "core.context_processors.settings",
 )
 
-CASHOUT_VERSION = (0, 0, 5)
+CASHOUT_VERSION = (0, 0, 6)
 
 PER_PAGE = 5
 
