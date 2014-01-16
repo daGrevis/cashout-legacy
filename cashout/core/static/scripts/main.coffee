@@ -1,7 +1,25 @@
+window.main = {}
+
 MIDDLE_CLICK = 2
 
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
+
+window.main.colors = [
+    "#001f3f",
+    "#0074d9",
+    "#7fdbff",
+    "#39cccc",
+    "#3d9970",
+    "#2ecc40",
+    "#01ff70",
+    "#ffdc00",
+    "#ff851b",
+    "#ff4136",
+    "#f012be",
+    "#b10dc9",
+    "#85144b",
+]
 
 delay = (ms, callable) -> setTimeout callable, ms
 

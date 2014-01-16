@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div id="frequency_graph" data-graph_data="{{ graph_data }}">
+        <div id="frequency_legend"></div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link href="{{ STATIC_URL }}vendor/rickshaw/rickshaw.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ STATIC_URL }}vendor/rickshaw/vendor/d3.v3.js"></script>
+    <script src="{{ STATIC_URL }}vendor/rickshaw/rickshaw.js"></script>
+    <script src="{{ STATIC_URL }}scripts/frequency_graph.js"></script>
+
+{% endblock %}

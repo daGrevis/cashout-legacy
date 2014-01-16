@@ -9,7 +9,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 
-from core.models import Payment, get_data_for_burndown_graph, CurrencyConverter
+from core.models import (Payment, get_data_for_burndown_graph,
+                         get_data_for_frequency_graph, CurrencyConverter)
 from core.forms import IndexForm, PaymentForm, BalanceResetForm
 from core.filters import PaymentFilter
 
@@ -120,6 +121,14 @@ def burndown_graph(request):
     graph_data = get_data_for_burndown_graph(payments)
     graph_data = json.dumps(graph_data)
     return render(request, "burndown_graph.html", {
+        "graph_data": graph_data,
+    })
+
+
+def frequency_graph(request):
+    graph_data = get_data_for_frequency_graph()
+    graph_data = json.dumps(graph_data)
+    return render(request, "frequency_graph.html", {
         "graph_data": graph_data,
     })
 

@@ -41,6 +41,11 @@ urlpatterns = patterns(
         name="core.burndown_graph",
     ),
     url(
+        r"^graphs/frequency/$",
+        core_views.frequency_graph,
+        name="core.frequency_graph",
+    ),
+    url(
         r"^balance_reset/$",
         core_views.balance_reset,
         name="core.balance_reset",

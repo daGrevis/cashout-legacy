@@ -32,6 +32,7 @@
                         <a href="#" data-toggle="dropdown">Graphs</a>
                         <ul class="dropdown-menu">
                             <li {% ifactive "core.burndown_graph" %}class="active"{% endifactive %}><a href="{% url "core.burndown_graph" %}">Burndown</a></li>
+                            <li {% ifactive "core.frequency_graph" %}class="active"{% endifactive %}><a href="{% url "core.frequency_graph" %}">Frequency</a></li>
                         </ul>
                     </li>
                     <li {% ifactive "core.balance_reset" %}class="active"{% endifactive %}><a href="{% url "core.balance_reset" %}">Reset</a></li>

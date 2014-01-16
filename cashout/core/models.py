@@ -2,6 +2,7 @@ from datetime import datetime
 import calendar
 import json
 from decimal import Decimal
+from collections import Counter
 
 from arrow import Arrow
 import requests
@@ -102,6 +103,15 @@ def get_data_for_burndown_graph(payments):
             "y": round(actual_balance, 2),
         })
     return data
+
+
+def get_data_for_frequency_graph():
+    payments = Payment.objects.filter(created__month=
+                                      (datetime.now()).month).expenses()
+    tags = []
+    for payment in payments:
+        tags.extend(payment.tags.all().values_list("name", flat=True))
+    return Counter(tags).most_common(10)
 
 
 class GoogleExchangeBackend(object):
