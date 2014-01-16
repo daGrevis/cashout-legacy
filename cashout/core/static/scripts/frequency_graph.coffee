@@ -3,7 +3,7 @@ data = $graph.data "graph_data"
 series = []
 $.each data, (i, el) ->
     series.push
-        color: window.main.colors[i],
+        color: ($.map window.main.colors, (value, key) -> value)[i]
         name: "“#{el[0]}“ (#{el[1]})"
         data: [x: 0, y: el[1]]
 graph = new Rickshaw.Graph
@@ -14,6 +14,6 @@ graph = new Rickshaw.Graph
     series: series
 new Rickshaw.Graph.Legend
     graph: graph
-    element: $("#frequency_legend")[0]
+    element: $("#frequency_legend").get(0)
     naturalOrder: true
 graph.render()

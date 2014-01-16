@@ -5,21 +5,26 @@ MIDDLE_CLICK = 2
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
 
-window.main.colors = [
-    "#001f3f",
-    "#0074d9",
-    "#7fdbff",
-    "#39cccc",
-    "#3d9970",
-    "#2ecc40",
-    "#01ff70",
-    "#ffdc00",
-    "#ff851b",
-    "#ff4136",
-    "#f012be",
-    "#b10dc9",
-    "#85144b",
-]
+# clrs.cc
+window.main.colors = {
+    "navy": "#001f3f",
+    "blue": "#0074d9",
+    "aqua": "#7fdbff",
+    "teal": "#39cccc",
+    "olive": "#3d9970",
+    "green": "#2ecc40",
+    "lime": "#01ff70",
+    "yellow": "#ffdc00",
+    "orange": "#ff851b",
+    "red": "#ff4136",
+    "fuchsia": "#f012be",
+    "purple": "#b10dc9",
+    "maroon": "#85144b",
+    "white": "white",
+    "silver": "#dddddd",
+    "gray": "#aaaaaa",
+    "black": "#111111",
+}
 
 delay = (ms, callable) -> setTimeout callable, ms
 

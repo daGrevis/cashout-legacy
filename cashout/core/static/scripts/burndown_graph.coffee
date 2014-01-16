@@ -14,11 +14,11 @@ graph = new Rickshaw.Graph
     series: [
         {
             data: data["ideal"]
-            color: "#e5e5e5"
+            color: window.main.colors["silver"]
         }
         {
             data: data["actual"]
-            color: "steelblue"
+            color: window.main.colors["blue"]
         }
     ]
 new Rickshaw.Graph.Axis.Time graph: graph
