@@ -11,12 +11,15 @@
 
         <title>Cashout</title>
 
+        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.png">
+
         <link href="{{ STATIC_URL }}vendor/nprogress/nprogress.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/bootstrap-flat/css/bootstrap-flat.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/ladda-bootstrap/dist/ladda-themeless.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}vendor/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}vendor/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}stylesheets/main.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
@@ -24,15 +27,19 @@
     <body>
         <div class="container">
             <div class="header clearfix">
-                <h3 class="text-muted"><a href="{% url "core.index" %}">Cashout</a></h3>
+                <a href="{% url "core.index" %}">
+                    <span id="logo" class="fa fa-barcode"></span>
+                    <h3 class="text-muted">Cashout</h3>
+                </a>
                 <ul class="nav nav-pills">
                     <li {% ifactive "core.index" %}class="active"{% endifactive %}><a href="{% url "core.index" %}">Index</a></li>
                     <li {% ifstartswith "/payments/" %}class="active"{% endifstartswith %}><a href="{% url "core.payment_list" %}">Payments</a></li>
-                    <li {% ifstartswith "/graphs/" %}class="active"{% endifstartswith %} class="dropdown">
-                        <a href="#" data-toggle="dropdown">Graphs</a>
+                    <li {% ifstartswith "/charts/" %}class="active"{% endifstartswith %} class="dropdown">
+                        <a href="#" data-toggle="dropdown">Charts</a>
                         <ul class="dropdown-menu">
-                            <li {% ifactive "core.burndown_graph" %}class="active"{% endifactive %}><a href="{% url "core.burndown_graph" %}">Burndown</a></li>
-                            <li {% ifactive "core.frequency_graph" %}class="active"{% endifactive %}><a href="{% url "core.frequency_graph" %}">Frequency</a></li>
+                            <li {% ifactive "core.burndown_chart" %}class="active"{% endifactive %}><a href="{% url "core.burndown_chart" %}">Burndown</a></li>
+                            <li {% ifactive "core.frequency_chart" %}class="active"{% endifactive %}><a href="{% url "core.frequency_chart" %}">Frequency</a></li>
+                            <li {% ifactive "core.expenses_chart" %}class="active"{% endifactive %}><a href="{% url "core.expenses_chart" %}">Expenses</a></li>
                         </ul>
                     </li>
                     <li {% ifactive "core.balance_reset" %}class="active"{% endifactive %}><a href="{% url "core.balance_reset" %}">Reset</a></li>

@@ -6,7 +6,7 @@ ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
 
 # clrs.cc
-window.main.colors = {
+window.main.color_names_to_colors =
     "navy": "#001f3f",
     "blue": "#0074d9",
     "aqua": "#7fdbff",
@@ -17,14 +17,16 @@ window.main.colors = {
     "yellow": "#ffdc00",
     "orange": "#ff851b",
     "red": "#ff4136",
+    "maroon": "#85144b",
     "fuchsia": "#f012be",
     "purple": "#b10dc9",
-    "maroon": "#85144b",
-    "white": "white",
+    "white": "#ffffff",
     "silver": "#dddddd",
     "gray": "#aaaaaa",
     "black": "#111111",
-}
+
+window.main.colors =
+    ($.map window.main.color_names_to_colors, (value, key) -> value)
 
 delay = (ms, callable) -> setTimeout callable, ms
 

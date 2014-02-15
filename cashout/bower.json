@@ -3,9 +3,11 @@
     "version": "0.0.6",
     "dependencies": {
         "bootbox": "latest",
-        "bootstrap": "latest",
-        "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
         "bootstrap3-datetimepicker": "latest",
+        "bootstrap-flat": "https://github.com/scottdorman/bootstrap-flat/archive/master.zip",
+        "bootstrap": "latest",
+        "font-awesome": "latest",
+        "jquery-flot": "latest",
         "jquery": "latest",
         "ladda-bootstrap": "latest",
         "nprogress": "latest",

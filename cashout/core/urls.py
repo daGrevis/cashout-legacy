@@ -36,14 +36,19 @@ urlpatterns = patterns(
         name="core.payment_guess",
     ),
     url(
-        r"^graphs/burndown/$",
-        core_views.burndown_graph,
-        name="core.burndown_graph",
+        r"^charts/burndown/$",
+        core_views.burndown_chart,
+        name="core.burndown_chart",
     ),
     url(
-        r"^graphs/frequency/$",
-        core_views.frequency_graph,
-        name="core.frequency_graph",
+        r"^charts/frequency/$",
+        core_views.frequency_chart,
+        name="core.frequency_chart",
+    ),
+    url(
+        r"^charts/expenses/$",
+        core_views.expenses_chart,
+        name="core.expenses_chart",
     ),
     url(
         r"^balance_reset/$",

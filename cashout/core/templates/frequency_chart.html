@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div id="frequency_chart" class="chart" data-chart_data="{{ chart_data }}">
+        <div id="frequency_legend"></div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ STATIC_URL }}vendor/jquery-flot/jquery.flot.js"></script>
+    <script src="{{ STATIC_URL }}vendor/jquery-flot/jquery.flot.categories.js"></script>
+    <script src="{{ STATIC_URL }}scripts/frequency_chart.js"></script>
+
+{% endblock %}

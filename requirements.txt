@@ -6,5 +6,6 @@ django-extensions
 django-filter
 django-jsonview
 django-taggit
+fake-factory
 requests
 south

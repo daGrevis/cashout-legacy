@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -79,3 +80,5 @@ DEFAULT_TITLE_FOR_BALANCE_RESET = "Balance reset"
 DEFAULT_TAGS_FOR_BALANCE_RESET = (
     "balance reset",
 )
+
+TESTING = "test" in sys.argv

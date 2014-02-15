@@ -74,44 +74,46 @@ class Payment(models.Model):
                                             settings.DEFAULT_CURRENCY,
                                             settings.SECONDARY_CURRENCY)
 
+    def get_tags_as_list(self):
+        return list(self.tags.values_list("name", flat=True))
 
-def get_data_for_burndown_graph(payments):
+
+def get_data_for_burndown_chart(payments):
+    data = {}
     now = datetime.now()
     _, count_of_days_in_month = calendar.monthrange(now.year, now.month)
     days = range(1, count_of_days_in_month + 1)
     start_balance = Payment.get_price(payments.incomes())
+    data["start_balance"] = round(start_balance, 2)
     day_balance = start_balance / count_of_days_in_month
-    data = {
-        "ideal": [],
-        "actual": [],
-    }
+    data["ideal"] = []
+    data["actual"] = []
     actual_balance = start_balance
     for day in days:
         timestamp = (Arrow(year=now.year, month=now.month, day=day)).timestamp
-        data["ideal"].append({
-            "x": timestamp,
-            "y": round(day_balance * (count_of_days_in_month - day), 2),
-        })
+        x = timestamp * 1000  # Unix timestamp in milliseconds.
+        y = round(day_balance * (count_of_days_in_month - day), 2),
+        data["ideal"].append([x, y])
         if day > now.day:
             continue
         # TODO: Code below executes a query on each iteration!
         expenses_today = payments.expenses().filter(created__day=day)
         spent_today = Payment.get_price(expenses_today) * -1
         actual_balance -= spent_today
-        data["actual"].append({
-            "x": timestamp,
-            "y": round(actual_balance, 2),
-        })
+        data["actual"].append([x, round(actual_balance)])
     return data
 
 
-def get_data_for_frequency_graph():
+def get_data_for_frequency_chart():
     payments = Payment.objects.filter(created__month=
                                       (datetime.now()).month).expenses()
     tags = []
     for payment in payments:
         tags.extend(payment.tags.all().values_list("name", flat=True))
-    return Counter(tags).most_common(10)
+    data = []
+    for label, frequency in Counter(tags).most_common(10):
+        data.append({"data": [[label, frequency]]})
+    return data
 
 
 class GoogleExchangeBackend(object):

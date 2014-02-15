@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div id="expenses_chart" class="chart" data-chart_data="{{ chart_data }}"></div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ STATIC_URL }}vendor/jquery-flot/jquery.flot.js"></script>
+    <script src="{{ STATIC_URL }}vendor/jquery-flot/jquery.flot.pie.js"></script>
+    <script src="{{ STATIC_URL }}scripts/expenses_chart.js"></script>
+
+{% endblock %}
