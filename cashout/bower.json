@@ -1,6 +1,6 @@
 {
     "name": "Cashout",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "dependencies": {
         "bootbox": "latest",
         "bootstrap3-datetimepicker": "latest",

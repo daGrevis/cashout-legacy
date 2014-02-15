@@ -1,5 +1,14 @@
 # Changelog
 
+0.0.7 (15/02/14):
+
+* Add charts/expenses,
+* Add logo and favicon,
+* Rewrite charts to jQuery Flot,
+* Add some integration tests (more to come!),
+* Add scripts to watch/build static,
+* Fix CSRF-invulnerability;
+
 0.0.6 (16/01/14):
 
 * Add support for multiple currencies,
