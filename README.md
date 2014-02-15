@@ -1,3 +1,7 @@
+# Cashout
+
+[![Cashout by Fugazi](http://img.youtube.com/vi/MNYbKFi8HVM/0.jpg)](http://www.youtube.com/watch?v=MNYbKFi8HVM)
+
 W(very)IP.
 
 [Changelog](https://github.com/daGrevis/cashout/blob/master/CHANGELOG.md).
