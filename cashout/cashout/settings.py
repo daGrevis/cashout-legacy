@@ -1,8 +1,8 @@
-import os
+import os.path as path
 import sys
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = path.dirname(path.dirname(__file__))
 
 SECRET_KEY = "x" * 32
 
@@ -35,7 +35,7 @@ WSGI_APPLICATION = "cashout.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "database.sqlite3"),
+        "NAME": path.join(BASE_DIR, "database.sqlite3"),
     }
 }
 
@@ -43,7 +43,7 @@ LANGUAGE_CODE = "en-us"
 
 USE_TZ = False
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = path.join(BASE_DIR, "static")
 
 STATIC_URL = "/static/"
 
