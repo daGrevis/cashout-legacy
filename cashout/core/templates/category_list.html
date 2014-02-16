@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+
+{% block content %}
+
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Payment count</th>
+            <th></th>
+        </tr>
+        {% for category in categories %}
+            <tr class="clickable_row" data-category_pk="{{ category.pk }}">
+                <td><a href="#">{{ category.title }}</a></td>
+                <td>{{ category.payment_count }}</td>
+                <td><a href="#" class="fa fa-times delete_category"></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="#" id="add_category" class="btn btn-primary">Add a category</a>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ STATIC_URL }}scripts/category_list.js"></script>
+
+{% endblock %}

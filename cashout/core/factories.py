@@ -5,7 +5,7 @@ from factory.django import DjangoModelFactory
 
 from django.conf import settings
 
-from core.models import Payment
+from core.models import Payment, Category
 
 
 fake_factory = Factory.create()
@@ -34,3 +34,9 @@ class PaymentFactory(DjangoModelFactory):
     price = fake_price()
     currency = settings.DEFAULT_CURRENCY
     created = fake_iso8601_without_t()
+
+
+class CategoryFactory(DjangoModelFactory):
+    FACTORY_FOR = Category
+
+    title = fake_factory.word()

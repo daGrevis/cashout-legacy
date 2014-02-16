@@ -25,6 +25,8 @@
     </head>
 
     <body>
+        <input type="hidden" value="{{ csrf_token }}" id="csrf_token">
+
         <div class="container">
             <div class="header clearfix">
                 <a href="{% url "core.index" %}">
@@ -34,6 +36,7 @@
                 <ul class="nav nav-pills">
                     <li {% ifactive "core.index" %}class="active"{% endifactive %}><a href="{% url "core.index" %}">Index</a></li>
                     <li {% ifstartswith "/payments/" %}class="active"{% endifstartswith %}><a href="{% url "core.payment_list" %}">Payments</a></li>
+                    <li {% ifstartswith "/categories/" %}class="active"{% endifstartswith %}><a href="{% url "core.category_list" %}">Categories</a></li>
                     <li {% ifstartswith "/charts/" %}class="active"{% endifstartswith %} class="dropdown">
                         <a href="#" data-toggle="dropdown">Charts</a>
                         <ul class="dropdown-menu">

@@ -1,6 +1,6 @@
 from django import forms
 
-from core.models import Payment
+from core.models import Payment, Category
 
 
 class IndexForm(forms.ModelForm):
@@ -28,3 +28,8 @@ class PaymentForm(forms.ModelForm):
 
 class BalanceResetForm(forms.Form):
     price = forms.DecimalField(max_digits=9, decimal_places=2)
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta(object):
+        model = Category

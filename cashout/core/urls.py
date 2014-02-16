@@ -36,6 +36,16 @@ urlpatterns = patterns(
         name="core.payment_guess",
     ),
     url(
+        r"^categories/$",
+        core_views.category_list,
+        name="core.category_list",
+    ),
+    url(
+        r"^categories/(?P<category_pk>\d+)/$",
+        core_views.category_item,
+        name="core.category_item",
+    ),
+    url(
         r"^charts/burndown/$",
         core_views.burndown_chart,
         name="core.burndown_chart",

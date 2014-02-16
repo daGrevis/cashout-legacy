@@ -9,10 +9,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Sum, Count
+from django.http import HttpResponse
 
-from core.models import (Payment, get_data_for_burndown_chart,
+from core.models import (Payment, Category, get_data_for_burndown_chart,
                          get_data_for_frequency_chart, CurrencyConverter)
-from core.forms import IndexForm, PaymentForm, BalanceResetForm
+from core.forms import IndexForm, PaymentForm, CategoryForm, BalanceResetForm
 from core.filters import PaymentFilter
 from core.utils import check_for_csrf_token
 
@@ -129,6 +130,32 @@ def payment_guess(request):
     tags = list(payment.tags.all().values_list("name", flat=True))
 
     return {"price": price, "tags": tags}
+
+
+def category_list(request):
+    if request.method == "POST":
+        category_form = CategoryForm(request.POST)
+        if category_form.is_valid():
+            category_form.save()
+            messages.success(request, "Category was successfully added!")
+        return HttpResponse("")
+
+    categories = Category.objects.annotate(payment_count=Count("payment"))
+
+    return render(request, "category_list.html", {
+        "categories": categories,
+    })
+
+
+def category_item(request, category_pk):
+    category = get_object_or_404(Category, pk=category_pk)
+
+    if "delete" in request.GET:
+        check_for_csrf_token(request, (request.GET).get("csrf_token"))
+        category.delete()
+        messages.success(request, "Category was successfully deleted!")
+
+    return HttpResponse("")
 
 
 def burndown_chart(request):

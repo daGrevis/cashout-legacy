@@ -6,8 +6,8 @@ from faker import Factory
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from core.factories import fake_tags, PaymentFactory
-from core.models import Payment
+from core.factories import fake_tags, PaymentFactory, CategoryFactory
+from core.models import Payment, Category
 from core.utils import filter_by_keys
 
 
@@ -65,3 +65,25 @@ class PaymentTestCase(TestCase):
         self.assertEqual(response.status_code, httplib.FOUND)
 
         self.assertFalse(Payment.objects.exists())
+
+
+class CategoryTestCase(TestCase):
+    def test_add_category(self):
+        data = CategoryFactory.attributes()
+
+        response = self.client.post(reverse("core.category_list"), data)
+
+        self.assertEqual(response.status_code, httplib.OK)
+
+        self.assertTrue(Category.objects.filter(title=data["title"]).exists())
+
+    def test_delete_category(self):
+        category = CategoryFactory.create()
+
+        category_url = reverse("core.category_item",
+                               kwargs={"category_pk": category.pk})
+        response = self.client.get(category_url, {"delete": True})
+
+        self.assertEqual(response.status_code, httplib.OK)
+
+        self.assertFalse(Category.objects.exists())

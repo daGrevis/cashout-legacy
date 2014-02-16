@@ -1,6 +1,7 @@
 /bin/
 /cashout/cashout/dev_settings.py
 /cashout/cashout/prod_settings.py
+/cashout/dropbox_tokens
 /include/
 /lib/
 /man/

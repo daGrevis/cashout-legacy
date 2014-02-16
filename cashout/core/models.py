@@ -14,6 +14,10 @@ from django.db import models
 from django.conf import settings
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=255, db_index=True)
+
+
 class PaymentQS(models.query.QuerySet):
     def incomes(self):
         return self.filter(price__gt=0)
@@ -43,6 +47,7 @@ class Payment(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2)
     currency = (models.CharField(max_length=3,
                 choices=CURRENCY_CHOICES, default=settings.DEFAULT_CURRENCY))
+    category = models.ForeignKey(Category, null=True)
 
     def __unicode__(self):
         return u"title: {}, price: {}".format(self.title, self.price)

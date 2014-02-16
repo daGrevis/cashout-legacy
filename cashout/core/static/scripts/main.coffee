@@ -5,6 +5,9 @@ MIDDLE_CLICK = 2
 ISO_8601_DATEFORMAT_PLACEHOLDER = "YYYY-MM-DD HH:mm:ss" # W/o timezone.
 DELAY_BEFORE_HIDE_ALERTS = 1000 * 10
 
+window.main.get_csrf_token = ->
+    $("#csrf_token").val()
+
 # clrs.cc
 window.main.color_names_to_colors =
     "navy": "#001f3f",
@@ -54,8 +57,8 @@ $(document).ready ->
     $(".confirm").click (event) ->
         $el = $(@)
         event.preventDefault()
-        bootbox.confirm "Are you really sure? It can't be undone.", (result) ->
-            if result
+        bootbox.confirm "Are you really sure? It can't be undone.", (is_sure) ->
+            if is_sure
                 link = $el.attr "href"
                 if link?
                     location.href = link
