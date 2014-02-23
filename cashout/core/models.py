@@ -109,7 +109,7 @@ def get_data_for_burndown_chart(payments):
 
     actual_balance = start_balance
     data = {}
-    data["start_balance"] = round(start_balance, 2)
+    data["incomes_balance"] = round(incomes_balance, 2)
     data["ideal"] = []
     data["actual"] = []
     data["expected"] = []

@@ -3,7 +3,7 @@ PERCENTAGE_OF_CRITICAL_BALANCE = 20
 $chart = $("#burndown_chart")
 data = $chart.data "chart_data"
 
-critical_balance = (data.start_balance / 100) * PERCENTAGE_OF_CRITICAL_BALANCE
+critical_balance = (data.incomes_balance / 100) * PERCENTAGE_OF_CRITICAL_BALANCE
 
 data = [
     {
