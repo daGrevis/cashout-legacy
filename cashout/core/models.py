@@ -101,7 +101,7 @@ def get_data_for_burndown_chart(payments):
     data["actual"] = []
     actual_balance = start_balance
     payments = (Payment.objects.extra(select={"day": "DATE(`created`)"})
-                .filter(created__month=2)
+                .filter(created__month=now.month)
                 .values("day").annotate(balance=Sum("price")))
     for day in days:
         today = datetime(year=now.year, month=now.month, day=day)
