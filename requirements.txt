@@ -1,4 +1,3 @@
-arrow
 django
 django-activelink
 django-bootstrap-form

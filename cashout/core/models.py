@@ -4,7 +4,8 @@ import json
 from decimal import Decimal
 from collections import Counter
 
-from arrow import Arrow
+from django.db.models import Sum
+
 import requests
 from taggit.managers import TaggableManager
 from django_extensions.db.fields import (CreationDateTimeField,
@@ -12,6 +13,10 @@ from django_extensions.db.fields import (CreationDateTimeField,
 
 from django.db import models
 from django.conf import settings
+
+
+def get_timestamp(datetime):
+    return calendar.timegm(datetime.utctimetuple())
 
 
 class Category(models.Model):
@@ -86,25 +91,33 @@ class Payment(models.Model):
 def get_data_for_burndown_chart(payments):
     data = {}
     now = datetime.now()
+    month = datetime(year=now.year, month=now.month, day=1)
     _, count_of_days_in_month = calendar.monthrange(now.year, now.month)
     days = range(1, count_of_days_in_month + 1)
-    start_balance = Payment.get_price(payments.incomes())
+    start_balance = Payment.get_price(payments.filter(created__lt=month))
     data["start_balance"] = round(start_balance, 2)
     day_balance = start_balance / count_of_days_in_month
     data["ideal"] = []
     data["actual"] = []
     actual_balance = start_balance
+    payments = (Payment.objects.extra(select={"day": "DATE(`created`)"})
+                .filter(created__month=2)
+                .values("day").annotate(balance=Sum("price")))
     for day in days:
-        timestamp = (Arrow(year=now.year, month=now.month, day=day)).timestamp
+        today = datetime(year=now.year, month=now.month, day=day)
+        timestamp = get_timestamp(today)
         x = timestamp * 1000  # Unix timestamp in milliseconds.
         y = round(day_balance * (count_of_days_in_month - day), 2),
         data["ideal"].append([x, y])
         if day > now.day:
             continue
-        # TODO: Code below executes a query on each iteration!
-        expenses_today = payments.expenses().filter(created__day=day)
-        spent_today = Payment.get_price(expenses_today) * -1
-        actual_balance -= spent_today
+        try:
+            spent_today = [payment for payment in payments
+                           if datetime.strptime(payment["day"], "%Y-%m-%d")
+                           == today][0]["balance"]
+        except IndexError:
+            spent_today = 0
+        actual_balance += spent_today
         data["actual"].append([x, round(actual_balance)])
     return data
 
