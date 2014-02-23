@@ -122,7 +122,7 @@ def get_data_for_burndown_chart(payments):
         y = round(ideal_spending_per_day * (count_of_days_in_month - day), 2)
         data["ideal"].append([x, y])
 
-        if day < now.day:
+        if day <= now.day:
             try:
                 spent_today = [payment for payment in payments
                                if datetime.strptime(payment["day"], "%Y-%m-%d")
@@ -135,9 +135,9 @@ def get_data_for_burndown_chart(payments):
             y = round(actual_balance, 2)
 
             data["actual"].append([x, y])
-        if day >= (now.day - 1):
+        if day >= now.day:
             y = round(actual_balance
-                      + (expected_spending_per_day * ((day - now.day) + 1)), 2)
+                      + (expected_spending_per_day * (day - now.day)), 2)
 
             data["expected"].append([x, y])
 
