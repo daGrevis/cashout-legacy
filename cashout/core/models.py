@@ -89,36 +89,58 @@ class Payment(models.Model):
 
 
 def get_data_for_burndown_chart(payments):
-    data = {}
     now = datetime.now()
     month = datetime(year=now.year, month=now.month, day=1)
     _, count_of_days_in_month = calendar.monthrange(now.year, now.month)
     days = range(1, count_of_days_in_month + 1)
-    start_balance = Payment.get_price(payments.filter(created__lt=month))
-    data["start_balance"] = round(start_balance, 2)
-    day_balance = start_balance / count_of_days_in_month
-    data["ideal"] = []
-    data["actual"] = []
-    actual_balance = start_balance
+
     payments = (Payment.objects.extra(select={"day": "DATE(`created`)"})
                 .filter(created__month=now.month)
                 .values("day").annotate(balance=Sum("price")))
+    start_balance = Payment.get_price(payments.filter(created__lt=month))
+
+    incomes_balance = (Payment.objects.filter(created__month=now.month)
+                       .incomes().aggregate(balance=Sum("price"))["balance"])
+    ideal_spending_per_day = incomes_balance / count_of_days_in_month
+
+    expenses_balance = (Payment.objects.filter(created__month=now.month)
+                        .expenses().aggregate(balance=Sum("price"))["balance"])
+    expected_spending_per_day = expenses_balance / len(payments)
+
+    actual_balance = start_balance
+    data = {}
+    data["start_balance"] = round(start_balance, 2)
+    data["ideal"] = []
+    data["actual"] = []
+    data["expected"] = []
+
     for day in days:
         today = datetime(year=now.year, month=now.month, day=day)
         timestamp = get_timestamp(today)
         x = timestamp * 1000  # Unix timestamp in milliseconds.
-        y = round(day_balance * (count_of_days_in_month - day), 2),
+
+        y = round(ideal_spending_per_day * (count_of_days_in_month - day), 2)
         data["ideal"].append([x, y])
-        if day > now.day:
-            continue
-        try:
-            spent_today = [payment for payment in payments
-                           if datetime.strptime(payment["day"], "%Y-%m-%d")
-                           == today][0]["balance"]
-        except IndexError:
-            spent_today = 0
-        actual_balance += spent_today
-        data["actual"].append([x, round(actual_balance)])
+
+        if day < now.day:
+            try:
+                spent_today = [payment for payment in payments
+                               if datetime.strptime(payment["day"], "%Y-%m-%d")
+                               == today][0]["balance"]
+            except IndexError:
+                spent_today = 0
+
+            actual_balance += spent_today
+
+            y = round(actual_balance, 2)
+
+            data["actual"].append([x, y])
+        if day >= (now.day - 1):
+            y = round(actual_balance
+                      + (expected_spending_per_day * ((day - now.day) + 1)), 2)
+
+            data["expected"].append([x, y])
+
     return data
 
 

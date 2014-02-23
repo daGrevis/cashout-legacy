@@ -14,6 +14,10 @@ data = [
         data: data.actual,
         color: window.main.color_names_to_colors["blue"]
     }
+    {
+        data: data.expected,
+        color: window.main.color_names_to_colors["gray"]
+    }
 ]
 
 $.plot $chart, data,
