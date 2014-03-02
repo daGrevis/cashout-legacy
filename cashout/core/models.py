@@ -97,6 +97,10 @@ def get_data_for_burndown_chart(payments):
     payments = (Payment.objects.extra(select={"day": "DATE(`created`)"})
                 .filter(created__month=now.month)
                 .values("day").annotate(balance=Sum("price")))
+
+    if not payments:
+        return {}
+
     start_balance = Payment.get_price(payments.filter(created__lt=month))
 
     incomes_balance = (Payment.objects.filter(created__month=now.month)
